@@ -84,7 +84,7 @@ exports.getCountsByUser = async (req, res) => {
 exports.getCounts = async (req, res) => {
   try {
     const openCount = await NasabahService.countOpen();
-    const closedCount = await NasabahService.countClosedByUser();
+    const closedCount = await NasabahService.countClosed();
 
     res.json({
       status: "success",
