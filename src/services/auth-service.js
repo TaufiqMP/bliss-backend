@@ -18,10 +18,10 @@ exports.register = async (email, username, password) => {
   const values = [email, username, hashed, 2];
   const result = await pool.query(query, values);
   const newUser = result.rows[0];
-  const leaderboardQuery = `INSERT INTO leaderboard(leaderboard_id, user_id, score)
-                            VALUES ($1, $2 ,$3)
+  const leaderboardQuery = `INSERT INTO leaderboard(user_id, score)
+                            VALUES ($1, $2)
                             RETURNING *`;
-  const LeaderboardValues = [leaderboard_id, newUser.user_id, 0];
+  const LeaderboardValues = [newUser.user_id, 0];
   await pool.query(leaderboardQuery, LeaderboardValues);
   return newUser;
 }
