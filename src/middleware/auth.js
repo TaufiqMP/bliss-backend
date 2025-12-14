@@ -51,7 +51,7 @@ const authUser = (req, res, next) => {
       res.cookie("accessToken", newAccessToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        sameSite: "none",
         maxAge: 15 * 60 * 1000, // 15 menit
       });
 
