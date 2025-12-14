@@ -11,11 +11,11 @@ exports.register = async (email, username, password) => {
   const hashed = await bcrypt.hash(password, 10);
   // const leaderboard_id = `leaderboard-${nanoid(5)}`;
   const query = `
-            INSERT INTO users (user_id, email, username, password, role_id)
-            VALUES ($1, $2, $3, $4, $5)
+            INSERT INTO users (email, username, password, role_id)
+            VALUES ($1, $2, $3, $4)
             RETURNING *
         `;
-  const values = [user_id, email, username, hashed, 2];
+  const values = [email, username, hashed, 2];
   const result = await pool.query(query, values);
   const newUser = result.rows[0];
   const leaderboardQuery = `INSERT INTO leaderboard(leaderboard_id, user_id, score)
