@@ -75,14 +75,14 @@ exports.logout = async (req, res) => {
     res.clearCookie("accessToken", {
       httpOnly: true,
       secure: true,
-      sameSite: "lax",
+      sameSite: "none",
       path: "/"
     });
 
     res.clearCookie("refreshToken", {
       httpOnly: true,
       secure: true,
-      sameSite: "lax",
+      sameSite: "none",
       path: "/"
     });
 
