@@ -18,6 +18,17 @@ exports.getAll = async (req, res) => {
   }
 };
 
+exports.getSpecificSales = async (req, res) => {
+  try {
+    const { user_id } = req.body;
+    const data = await NasabahService.getSpecificSales(user_id);
+
+    res.json({ status: "success", data });
+  } catch (err) {
+    res.status(400).json({ status: "fail", message: err.message });
+  }
+}
+
 exports.getById = async (req, res) => {
   try {
     const { id } = req.params;

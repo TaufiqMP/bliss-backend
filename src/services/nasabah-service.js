@@ -5,11 +5,17 @@ exports.getAll = async () => {
   return result.rows;
 };
 
-exports.getById = async (id) => {
-  const padded = String(id).padStart(3, "0")
-  const fullId = `nasabah-${padded}`;
+exports.getSpecificSales = async (user_id) => {
+  const result = await pool.query(
+    `SELECT * FROM nasabah WHERE assigned_to = $1`,
+    [user_id]
+  );
+  return result.rows;
+};
 
-  const result = await pool.query(`SELECT * FROM nasabah WHERE id = $1`, [fullId]);
+exports.getById = async (id) => {
+
+  const result = await pool.query(`SELECT * FROM nasabah WHERE id = $1`, [id]);
 
   if (result.rowCount === 0) throw new Error("Nasabah not found");
 
@@ -17,8 +23,6 @@ exports.getById = async (id) => {
 };
 
 exports.update = async (id, data) => {
-  const padded = String(id).padStart(3, "0")
-  const fullId = `nasabah-${padded}`;
   const { status, first_name, last_name, phone_number, email, job } = data;
 
   const result = await pool.query(
@@ -34,7 +38,7 @@ exports.update = async (id, data) => {
     WHERE id = $7
     RETURNING *;
   `,
-    [status, first_name, last_name, phone_number, email, job, fullId]
+    [status, first_name, last_name, phone_number, email, job, id]
   );
 
   if (result.rowCount === 0) throw new Error("Nasabah not found");
