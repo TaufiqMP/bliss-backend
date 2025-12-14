@@ -80,3 +80,18 @@ exports.getCountsByUser = async (req, res) => {
     res.status(400).json({ status: "fail", message: err.message });
   }
 };
+
+exports.getCounts = async (req, res) => {
+  try {
+    const openCount = await NasabahService.countOpen();
+    const closedCount = await NasabahService.countClosedByUser();
+
+    res.json({
+      status: "success",
+      data: { openCount, closedCount },
+    });
+  } catch (err) {
+    res.status(400).json({ status: "fail", message: err.message });
+  }
+};
+

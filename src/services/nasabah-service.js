@@ -74,3 +74,23 @@ exports.countClosedByUser = async (user_id) => {
 
   return parseInt(result.rows[0].closed_count, 10);
 };
+
+exports.countOpen = async () => {
+  const result = await pool.query(
+    `SELECT COUNT(*) AS open_count
+     FROM nasabah
+     WHERE status = 'OPEN'`,
+  );
+  return parseInt(result.rows[0].open_count, 10);
+};
+
+exports.countClosed = async () => {
+  const result = await pool.query(
+    `SELECT COUNT(*) AS closed_count
+     FROM nasabah
+     WHERE status IN ('CLOSED APPROVED', 'CLOSED REJECTED')`,
+  );
+
+  return parseInt(result.rows[0].closed_count, 10);
+};
+
