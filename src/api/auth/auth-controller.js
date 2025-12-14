@@ -33,7 +33,7 @@ exports.login = async (req, res) => {
 
     // OPTIONAL: bisa juga kirim access token sebagai cookie
     res.cookie("accessToken", accessToken, {
-      httpOnly: true,
+      httpOnly: false,
       secure: true,
       sameSite: "none",
       path: "/",
@@ -73,7 +73,7 @@ exports.logout = async (req, res) => {
 
 
     res.clearCookie("accessToken", {
-      httpOnly: true,
+      httpOnly: false,
       secure: true,
       sameSite: "none",
       path: "/"
