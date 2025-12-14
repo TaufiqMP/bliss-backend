@@ -9,7 +9,7 @@ exports.getTotalNasabah = async () => {
 }
 
 exports.getHighPriorityCustomer = async () => {
-    const query = 'SELECT COUNT(*) FROM nasabah WHERE prediction_score > 0,5'
+    const query = 'SELECT COUNT(*) FROM nasabah WHERE prediction_score > 0.5'
     const result = await pool.query(query)
     return result.rows[0].count
 }
