@@ -4,7 +4,7 @@ const NasabahController = require('./nasabah-controller')
 
 router.get('/', NasabahController.getAll);
 
-router.get('/counts', NasabahController.getCountsByUser);
+router.post('/counts', NasabahController.getCountsByUser);
 
 router.get('/:id', NasabahController.getById);
 router.put('/:id', NasabahController.update);
