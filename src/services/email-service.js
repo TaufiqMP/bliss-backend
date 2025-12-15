@@ -6,8 +6,8 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 exports.sendEmail = async (targetEmail) => {
     try {
-        // Ambil data leaderboard (bisa batasi top 100)
-        const leaderboardData = await userService.getSales({ limit: 100 });
+        // Ambil top 10 leaderboard
+        const leaderboardData = await userService.getSales({ limit: 10 });
 
         // Buat workbook Excel
         const workbook = new ExcelJS.Workbook();
@@ -32,13 +32,13 @@ exports.sendEmail = async (targetEmail) => {
         const date = new Date().toISOString().split('T')[0];
         const filename = `leaderboard-${date}.xlsx`;
 
-        // Kirim email via Resend (async)
+        // Kirim email ASYNC
         resend.emails.send({
             from: 'Bliss <onboarding@resend.dev>',
             to: targetEmail,
             reply_to: 'yourpersonalemail@gmail.com', // opsional
             subject: 'Ekspor Users Leaderboard',
-            text: 'Terlampir hasil dari ekspor leaderboard.',
+            text: 'Terlampir hasil dari ekspor leaderboard top 10.',
             attachments: [
                 {
                     filename,
@@ -53,5 +53,6 @@ exports.sendEmail = async (targetEmail) => {
 
     } catch (error) {
         console.error('Gagal membuat atau mengirim email:', error);
+        // Jangan throw error → controller tetap cepat
     }
 };
