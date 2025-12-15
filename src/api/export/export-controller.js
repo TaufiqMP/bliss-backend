@@ -10,27 +10,26 @@ exports.sendLeaderboardEmail = async (req, res) => {
                 message: 'user_id wajib dikirim',
             });
         }
-        const user = await userService.getUserById(user_id);
 
+        const user = await userService.getUserById(user_id);
         if (!user) {
             return res.status(404).json({
                 message: 'User tidak ditemukan.',
             });
         }
 
-        console.log('Send leaderboard to:', user.email);
+        console.log('Permintaan kirim leaderboard untuk:', user.email);
 
-        emailService.sendEmail(user.email).catch((err) => {
-            console.error('Email send failed:', err);
-        });
+        // 🔥 Kirim email ASYNC, langsung return 200
+        emailService.sendEmail(user.email);
 
-        res.status(200).json({
+        return res.status(200).json({
             message: 'Permintaan pengiriman email leaderboard diproses.',
         });
+
     } catch (error) {
         console.error('Controller error:', error);
-
-        res.status(500).json({
+        return res.status(500).json({
             message: 'Gagal memproses permintaan.',
         });
     }
