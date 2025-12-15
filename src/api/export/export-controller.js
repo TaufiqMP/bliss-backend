@@ -5,7 +5,7 @@ exports.sendLeaderboardEmail = async (req, res) => {
     try {
         const { user_id } = req.user;
         const user = await userService.getUserById(user_id);
-        console.log("user", user)
+        console.log("user", user.email)
         await emailService.sendEmail(user.email);
 
         res.status(200).json({
