@@ -5,7 +5,10 @@ exports.sendLeaderboardEmail = async (req, res) => {
     try {
         const { user_id } = req.body;
         const user = await userService.getUserById(user_id);
-
+        if (!user) {
+            return res.status(404).json({ message: "User tidak ditemukan." });
+        }
+        console.log("user", user.email)
         await emailService.sendEmail(user.email);
 
         res.status(200).json({
@@ -17,5 +20,6 @@ exports.sendLeaderboardEmail = async (req, res) => {
             message: "Gagal mengirim email.",
             error: error.message
         });
+        throw error;
     }
 };

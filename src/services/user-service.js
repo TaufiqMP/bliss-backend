@@ -1,4 +1,3 @@
-const { text } = require("express");
 const pool = require("../config/db");
 
 exports.getSales = async () => {
