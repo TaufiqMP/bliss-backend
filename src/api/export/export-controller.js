@@ -11,6 +11,7 @@ exports.sendLeaderboardEmail = async (req, res) => {
             });
         }
 
+<<<<<<< HEAD
         const user = await userService.getUserById(user_id);
 
         if (!user) {
@@ -24,6 +25,9 @@ exports.sendLeaderboardEmail = async (req, res) => {
         emailService.sendEmail(user.email).catch((err) => {
             console.error('Email send failed:', err);
         });
+=======
+        await emailService.sendEmail(user.email);
+>>>>>>> 8396ff760cf9d0fc3af37e40f5844b7ed5f55f7c
 
         res.status(200).json({
             message: 'Permintaan pengiriman email leaderboard diproses.',
