@@ -8,7 +8,7 @@ exports.sendLeaderboardEmail = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: "User tidak ditemukan." });
         }
-        console.log("user", user.email)
+
         await emailService.sendEmail(user.email);
 
         res.status(200).json({
