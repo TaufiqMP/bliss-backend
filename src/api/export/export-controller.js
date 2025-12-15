@@ -6,7 +6,7 @@ exports.sendLeaderboardEmail = async (req, res) => {
         const { user_id } = req.user;
         const user = await userService.getUserById(user_id);
         console.log("user", user)
-        await emailService.sendEmail(user.data.user.email);
+        await emailService.sendEmail('fendipermadi058@gmail.com');
 
         res.status(200).json({
             message: "Email leaderboard berhasil dikirim."
